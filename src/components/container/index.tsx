@@ -8,15 +8,16 @@ interface ContainerProps {
 }
 
 const Container: React.FC<ContainerProps> = props => {
-  const { themeColors, Layout, Common } = useTheme()
+  const { themeMode, themeColors, Layout, Common } = useTheme()
 
   return (
     <View style={[Layout.fill, { backgroundColor: themeColors.HEADER }]}>
-      <SafeAreaView style={[styles.container, ]}>
+      <SafeAreaView style={[styles.container,]}>
         <StatusBar
+          backgroundColor="red"
           animated={true}
           showHideTransition={'none'}
-          barStyle={"default"}
+          barStyle={themeMode == 'light' ? 'dark-content' : 'light-content'}
         />
         <View {...props} style={styles.sub_container}>
           {props.children}
@@ -42,6 +43,7 @@ const styles = {
   },
   container: {
     flex: 1,
+    marginTop: StatusBar.currentHeight
     // backgroundColor: '#F4F5FA'//Colors.COLOR_WHITE
   },
   sub_container: {

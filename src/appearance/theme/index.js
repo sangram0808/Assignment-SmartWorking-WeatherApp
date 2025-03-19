@@ -7,11 +7,11 @@ export default {
         BUTTON: '#1E50A6',
 
         TEXT_HEADER: '#1F2020',
-        TEXT_PRIMARY: '#21232B',  // Deep blue
-        TEXT_SECONDARY: '#E3E3E3', // White
-        TEXT_TERTIARY: '#4A90E2',  // Lighter blue
+        TEXT_PRIMARY: '#111111',  // Deep blue
+        TEXT_SECONDARY: '#374151', // White
+        TEXT_HIGHLIGHT: '#60A5FA',  // Lighter blue
 
-        BORDER: '#CCCCCC',
+        BORDER: '#A0AEC0',
         ACCENT: '#FFA500',
         SHADOW: 'rgba(0, 0, 0, 0.1)',
     },
@@ -23,11 +23,11 @@ export default {
         BUTTON: '#1E50A6',
 
         TEXT_HEADER: '#E3E3E3',
-        TEXT_PRIMARY: '#E3E3E3',  // White
-        TEXT_SECONDARY: '#E3E3E3', // Deep blue
-        TEXT_TERTIARY: '#A0AEC0',  // Dimmed gray-blue
+        TEXT_PRIMARY: '#FFFFFF',  // White
+        TEXT_SECONDARY: '#A0AEC0', // Deep blue
+        TEXT_HIGHLIGHT: '#93C5FD',  // Dimmed gray-blue
      
-        BORDER: '#CCCCCC',
+        BORDER: '#4A5568',
         ACCENT: '#FFFF00',
         SHADOW: 'rgba(255, 255, 255, 0.1)',
     }

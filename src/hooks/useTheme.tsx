@@ -20,6 +20,7 @@ const useTheme = () => {
   const Gutters = Gutters_();
 
   const baseTheme = {
+    themeMode,
     Fonts,
     Gutters,
     Layout,

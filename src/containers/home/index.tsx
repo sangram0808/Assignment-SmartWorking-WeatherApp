@@ -40,25 +40,32 @@ const HomeScreen: React.FC = () => {
             <Header headerTitle={AppStrings.APP_NAME} />
 
             <View style={{ flex: 1, backgroundColor: themeColors.BACKGROUND }}>
+
                 <TextInput
                     value={city}
                     onChangeText={setCity}
                     placeholder="Enter city"
-                    style={Common.input}
+                    placeholderTextColor={themeColors.TEXT_SECONDARY}
+                    style={[Common.input, { borderColor: themeColors.BORDER, color: themeColors.TEXT_PRIMARY }]}
                 />
+
                 <Button style={{ width: '40%', alignSelf: 'flex-start', marginHorizontal: 12 }} label={AppStrings.SEARCH} onPress={handleSearch} />
 
-                {isLoading && <ActivityIndicator size="large" color={themeColors.PRIMARY} />}
+                {(data || error || isLoading) && <View style={[Common.card]}>
 
-                {error && <View style={[Common.card]}><Text style={{ fontSize: 16, color: Colors.RED }}></Text>nh{AppStrings.ERROR}</View>}
+                    {isLoading && <ActivityIndicator size="large" color={themeColors.PRIMARY} />}
 
-                {(!error && data) && (
-                    <View style={[Common.card]}>
-                        <Text style={{ fontSize: 30, fontFamily: 'DMSans-Bold' }}>🌍 {data.name}</Text>
-                        <Text style={{ fontSize: 60, fontFamily: 'DMSans-Bold' }}>{data.main.temp}°C</Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'DMSans-Bold' }}> {data.weather[0].description}</Text>
-                    </View>
-                )}
+                    {error && <Text style={{ fontSize: 16, color: Colors.RED }}>{AppStrings.ERROR}</Text>}
+
+                    {(!error && data) && (<>
+                        <Text style={{ fontSize: 30, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_PRIMARY }}>🌍 {data.name}</Text>
+                        <Text style={{ fontSize: 60, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_HIGHLIGHT }}>{data.main.temp}°C</Text>
+                        <Text style={{ fontSize: 16, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_SECONDARY }}> {data.weather[0].description}</Text>
+                    </>
+                    )}
+
+                </View>}
+
             </View>
         </Container>
     );

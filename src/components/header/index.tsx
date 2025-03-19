@@ -4,7 +4,6 @@ import AppColors from '../../appearance/theme/colors';
 import useTheme from '../../hooks/useTheme';
 import React, { useState } from 'react';
 import { View, Text, Switch, StyleProp, TextStyle } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import { toggleTheme } from '../../redux/api_slice/theme';
 
 interface HeaderProps {
@@ -24,7 +23,7 @@ const _headerTextStyle: StyleProp<TextStyle> = {
 
 const Header: React.FC<HeaderProps> = ({
   hasBackButton = false,
-  onBackbuttonPress = () => {},
+  onBackbuttonPress = () => { },
   backgroundcolor,
   headerTitle = 'Header',
   headerTextStyle = _headerTextStyle,
@@ -54,19 +53,11 @@ const Header: React.FC<HeaderProps> = ({
         },
       ]}
     >
-      {hasBackButton && (
-        <Icon
-          onPress={onBackbuttonPress}
-          name={'arrow-back'}
-          color={themeColors.TEXT}
-          size={25}
-          style={{ alignSelf: 'center', paddingHorizontal: 8, marginTop: 4 }}
-        />
-      )}
+
       <View style={{ flex: 1, paddingHorizontal: hasBackButton ? 10 : 16 }}>
         <Text
           numberOfLines={1}
-          style={[Fonts.titleSmall, { color: themeColors.TEXT_HEADER }, headerTextStyle]}
+          style={[Fonts.titleMedium, { color: themeColors.TEXT_HEADER }, headerTextStyle]}
         >
           {headerTitle}
         </Text>
@@ -81,15 +72,6 @@ const Header: React.FC<HeaderProps> = ({
         thumbColor={isDarkMode ? '#FFF' : themeColors.BUTTON}
         style={{ marginRight: 15 }}
       />
-      {showRightIcon && (
-        <Icon
-          onPress={onRightIconPress}
-          name={'home'}
-          color={'white'}
-          size={22}
-          style={{ alignSelf: 'center', paddingHorizontal: 8 }}
-        />
-      )}
     </View>
   );
 };
