@@ -25,7 +25,7 @@ export default function (Colors) {
     textSmall: {
       fontSize: FontSize.small,
       color: Colors.TEXT,
-    //  fontFamily: 'DMSans-Regular'
+      fontFamily: 'DMSans-Regular'
     },
     textRegular: {
       fontSize: FontSize.regular,
@@ -87,7 +87,7 @@ export default function (Colors) {
       fontFamily: 'DMSans-Bold'
     },
     titleMedium: {
-      fontSize: FontSize.small * 2,
+      fontSize: FontSize.medium * 2,
       fontWeight: 'bold',
       color: Colors.TEXT,
     },

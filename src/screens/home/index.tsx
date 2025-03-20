@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, ActivityIndicator, Alert } from 'react-native';
+
 import { useGetWeatherByCityQuery } from '../../redux/api_slice/weather';
 import { Container, Header, Button } from '../../components';
+
 import useTheme from '../../hooks/useTheme';
 import { AppStrings } from '../../config/strings';
 import Colors from '../../appearance/theme/colors';
+import TEST_ID from '../../config/test_ids';
 
 interface WeatherData {
     name: string;
@@ -21,7 +24,7 @@ interface WeatherError {
 }
 
 const HomeScreen: React.FC = () => {
-    const { themeColors, Layout, Common } = useTheme();
+    const { themeColors, Fonts, Common } = useTheme();
     const [city, setCity] = useState<string>('');
     const [searchedCity, setSearchedCity] = useState<string>('');
 
@@ -35,8 +38,6 @@ const HomeScreen: React.FC = () => {
         }
     };
 
-    if (isLoading) return <ActivityIndicator testID="loading-indicator" />;
-    
     return (
         <Container>
             <Header headerTitle={AppStrings.APP_NAME} />
@@ -44,7 +45,7 @@ const HomeScreen: React.FC = () => {
             <View style={{ flex: 1, backgroundColor: themeColors.BACKGROUND }}>
 
                 <TextInput
-                    testID="city-input"
+                    testID={TEST_ID.CITY_INPUT}
                     value={city}
                     onChangeText={setCity}
                     placeholder="Enter city"
@@ -53,7 +54,6 @@ const HomeScreen: React.FC = () => {
                 />
 
                 <Button style={{ width: '40%', alignSelf: 'flex-start', marginHorizontal: 12 }} label={AppStrings.SEARCH} onPress={handleSearch} />
-                <Button label="Start" accessibilityRole="button" accessibilityLabel="start" onPress={() => Alert.alert('Started!')} />
 
                 {(data || error || isLoading) && <View style={[Common.card]}>
 
@@ -62,9 +62,9 @@ const HomeScreen: React.FC = () => {
                     {error && <Text style={{ fontSize: 16, color: Colors.RED }}>{AppStrings.ERROR}</Text>}
 
                     {(!error && data) && (<>
-                        <Text testID="city-name" style={{ fontSize: 30, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_PRIMARY }}>🌍 {data.name}</Text>
-                        <Text testID="city-temp" style={{ fontSize: 60, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_HIGHLIGHT }}>{data.main.temp}°C</Text>
-                        <Text testID="city-description" style={{ fontSize: 16, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_SECONDARY }}> {data.weather[0].description}</Text>
+                        <Text testID={TEST_ID.CITY_NAME} style={[Fonts.titleMediumSmall, { color: themeColors.TEXT_PRIMARY }]}>🌍 {data.name}</Text>
+                        <Text testID={TEST_ID.CITY_TEMP} style={[Fonts.titleMedium, { color: themeColors.TEXT_HIGHLIGHT }]}>{data.main.temp}°C</Text>
+                        <Text testID={TEST_ID.CITY_DESCRIPTION} style={[Fonts.textSmall, { color: themeColors.TEXT_SECONDARY }]}> {data.weather[0].description}</Text>
                     </>
                     )}
 
