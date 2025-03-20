@@ -1,6 +1,6 @@
 import { createStaticNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../../containers/home';
+import HomeScreen from '../../screens/home';
 
 const RootStack = createNativeStackNavigator({
     screens: {

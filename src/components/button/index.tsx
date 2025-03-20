@@ -31,6 +31,7 @@ const Button: React.FC<ButtonProps> = ({
   textStyle,
   disabled = false,
   borderWidth = 0,
+  ...props
 }): any => {
   const { themeColors, Layout, Common } = useTheme()
 
@@ -53,6 +54,7 @@ const Button: React.FC<ButtonProps> = ({
         alignItems: 'center',
         borderRadius: 5,
       }, style]}
+      {...props}
     >
 
       <Text

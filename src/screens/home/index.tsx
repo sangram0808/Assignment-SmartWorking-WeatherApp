@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 import { useGetWeatherByCityQuery } from '../../redux/api_slice/weather';
 import { Container, Header, Button } from '../../components';
 import useTheme from '../../hooks/useTheme';
@@ -35,6 +35,8 @@ const HomeScreen: React.FC = () => {
         }
     };
 
+    if (isLoading) return <ActivityIndicator testID="loading-indicator" />;
+    
     return (
         <Container>
             <Header headerTitle={AppStrings.APP_NAME} />
@@ -42,6 +44,7 @@ const HomeScreen: React.FC = () => {
             <View style={{ flex: 1, backgroundColor: themeColors.BACKGROUND }}>
 
                 <TextInput
+                    testID="city-input"
                     value={city}
                     onChangeText={setCity}
                     placeholder="Enter city"
@@ -50,17 +53,18 @@ const HomeScreen: React.FC = () => {
                 />
 
                 <Button style={{ width: '40%', alignSelf: 'flex-start', marginHorizontal: 12 }} label={AppStrings.SEARCH} onPress={handleSearch} />
+                <Button label="Start" accessibilityRole="button" accessibilityLabel="start" onPress={() => Alert.alert('Started!')} />
 
                 {(data || error || isLoading) && <View style={[Common.card]}>
 
-                    {isLoading && <ActivityIndicator size="large" color={themeColors.PRIMARY} />}
+                    {isLoading && <ActivityIndicator testID="loading-indicator" size="large" color={themeColors.PRIMARY} />}
 
                     {error && <Text style={{ fontSize: 16, color: Colors.RED }}>{AppStrings.ERROR}</Text>}
 
                     {(!error && data) && (<>
-                        <Text style={{ fontSize: 30, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_PRIMARY }}>🌍 {data.name}</Text>
-                        <Text style={{ fontSize: 60, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_HIGHLIGHT }}>{data.main.temp}°C</Text>
-                        <Text style={{ fontSize: 16, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_SECONDARY }}> {data.weather[0].description}</Text>
+                        <Text testID="city-name" style={{ fontSize: 30, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_PRIMARY }}>🌍 {data.name}</Text>
+                        <Text testID="city-temp" style={{ fontSize: 60, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_HIGHLIGHT }}>{data.main.temp}°C</Text>
+                        <Text testID="city-description" style={{ fontSize: 16, fontFamily: 'DMSans-Bold', color: themeColors.TEXT_SECONDARY }}> {data.weather[0].description}</Text>
                     </>
                     )}
 
