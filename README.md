@@ -1,6 +1,6 @@
 # Getting Started for Weather App
 
-## Step 1: install node modules
+## Step 1: install node modules and pods
 
 First, you will need to install node modules to run React Native project.
 
@@ -10,7 +10,7 @@ npx pod-install ios
 
 ## Step 2: Include additional assets such as fonts, icons, and other resources
 
-npm react-native-asset
+npx react-native-asset
 
 
 ## Step 3: Build and run your app
@@ -24,3 +24,8 @@ npm run android/ npx react-native run-android
 ### iOS
 
 npm run ios/ npx react-native run-ios
+
+
+## run Unit Test cases
+
+npm run test screens/Home.test.tsx 
