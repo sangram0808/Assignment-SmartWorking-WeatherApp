@@ -1,6 +1,6 @@
 # Getting Started for Weather App
 
-## Step 1: Start Metro
+## Step 1: install node modules
 
 First, you will need to install node modules to run React Native project.
 
