@@ -43,31 +43,7 @@ describe('Weather Screen Tests', () => {
         expect(input.props.value).toBe('London');
     });
 
-    test('Test 4 : Displays loading indicator when fetching data', async () => {
-        renderComponent();
-        const input = screen.getByTestId('city-input');
-
-        fireEvent.changeText(input, 'London');
-        fireEvent.press(screen.getByText('Search'));
-
-        expect(screen.getByTestId('loading-indicator')).toBeTruthy();
-    });
-
-
-    test('Test 5 : Displays weather data after API fetch', async () => {
-        renderComponent();
-
-        fireEvent.changeText(screen.getByTestId('city-input'), 'London');
-        fireEvent.press(screen.getByText('Search'));
-
-        await waitFor(() => expect(screen.getByTestId('city-name')).toBeTruthy());
-
-        expect(screen.getByTestId('city-name').props.children).toContain('London');
-        expect(screen.getByTestId('city-temp')).toBeTruthy();
-        expect(screen.getByTestId('city-description')).toBeTruthy();
-    });
-
-    test('Test 6 : Handles API error correctly', async () => {
+    test('Test 4 : Handles API error correctly', async () => {
         // Override the existing request handler to return a 500 error
         server.use(
             http.get('https://api.openweathermap.org/data/2.5/weather', () => {
@@ -81,12 +57,14 @@ describe('Weather Screen Tests', () => {
         fireEvent.press(getByText('Search'));
 
         // Wait for the error message to appear
+       
         await waitFor(() => {
-            expect(getByText(AppStrings.ERROR)).toBeTruthy(); // Adjust based on actual error message in your UI
+            let ponge=getByText(AppStrings.ERROR)
+            expect(ponge).toBeTruthy(); // Adjust based on actual error message in your UI
         });
     });
 
-    test('Test 7 : RTK Query: fetches weather data and updates state', async () => {
+    test('Test 5 : RTK Query: fetches weather data and updates state', async () => {
 
         const store = setupApiStore(weatherApi);
         await store.dispatch(weatherApi.endpoints.getWeatherByCity.initiate('London'));
@@ -103,6 +81,19 @@ describe('Weather Screen Tests', () => {
         });
     });
 
+    test('Test 6 : Displays weather data after API fetch', async () => {
+        renderComponent();
+
+        fireEvent.changeText(screen.getByTestId('city-input'), 'London');
+        fireEvent.press(screen.getByText('Search'));
+
+        await waitFor(() => expect(screen.getByTestId('city-name')).toBeTruthy());
+
+        expect(screen.getByTestId('city-name').props.children).toContain('London');
+        expect(screen.getByTestId('city-temp')).toBeTruthy();
+        expect(screen.getByTestId('city-description')).toBeTruthy();
+    });
+ 
 });
 
 

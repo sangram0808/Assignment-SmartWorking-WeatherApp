@@ -8,5 +8,6 @@ module.exports = {
     "/node_modules/(?![@autofiy/autofiyable|@autofiy/property]).+\\.ts$",
     "/node_modules/(?![@autofiy/autofiyable|@autofiy/property]).+\\.tsx$",
   ],
+  setupFiles: ["./jestSetupFile.js"],
   setupFilesAfterEnv: ['./jest.setup.ts'],
 };

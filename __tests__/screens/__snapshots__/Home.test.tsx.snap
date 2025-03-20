@@ -36,7 +36,7 @@ exports[`Weather Screen Tests Test 1 : Weather Screen Snapshot 1`] = `
             {
               "alignItems": "center",
               "backgroundColor": "#F0F0F0",
-              "borderBottomColor": undefined,
+              "borderBottomColor": "#4BB3D4",
               "borderBottomWidth": 0.2,
               "flexDirection": "row",
               "height": 60,
