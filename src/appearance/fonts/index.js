@@ -3,7 +3,7 @@
  */
 import { StyleSheet } from 'react-native'
 import { FontSize } from '../constants'
-
+import Colors from '../theme/colors'
 /**
  *
  * @param Theme can be spread like {Colors, NavigationColors, Gutters, Layout, Common, ...args}

@@ -1,10 +1,11 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { HeaderHeight } from '../../appearance/constants';
 import AppColors from '../../appearance/theme/colors';
 import useTheme from '../../hooks/useTheme';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Switch, StyleProp, TextStyle } from 'react-native';
 import { toggleTheme } from '../../redux/api_slice/theme';
+import { storeKey } from '../../service/AsyncStorage';
 
 interface HeaderProps {
   hasBackButton?: boolean;
@@ -23,21 +24,24 @@ const _headerTextStyle: StyleProp<TextStyle> = {
 
 const Header: React.FC<HeaderProps> = ({
   hasBackButton = false,
-  onBackbuttonPress = () => { },
   backgroundcolor,
   headerTitle = 'Header',
   headerTextStyle = _headerTextStyle,
-  showRightIcon,
-  onRightIconPress,
 }) => {
+
   const { themeMode, themeColors, Fonts, Common } = useTheme();
-  const [isDarkMode, setIsDarkMode] = useState(themeMode === 'dark');
+  const [isDarkMode, setIsDarkMode] = useState(themeMode == 'dark');
 
   const dispatch = useDispatch();
 
   const handleToggleTheme = () => {
     dispatch(toggleTheme());
+    storeKey('theme', isDarkMode ? 'light' : 'dark')
   };
+
+  useEffect(() => {
+    if (themeMode) setIsDarkMode(themeMode == 'dark')
+  }, [themeMode])
 
   return (
     <View
@@ -48,7 +52,7 @@ const Header: React.FC<HeaderProps> = ({
           justifyContent: 'space-between',
           alignItems: 'center',
           borderBottomWidth: 0.2,
-          borderBottomColor: AppColors.GRAY1,
+          borderBottomColor: AppColors.BORDER,
           backgroundColor: backgroundcolor || themeColors.HEADER,
         },
       ]}
@@ -66,7 +70,6 @@ const Header: React.FC<HeaderProps> = ({
         value={isDarkMode}
         onValueChange={(value) => {
           handleToggleTheme();
-          setIsDarkMode(value);
         }}
         trackColor={{ false: '#767577', true: themeColors.BUTTON }}
         thumbColor={isDarkMode ? '#FFF' : themeColors.BUTTON}

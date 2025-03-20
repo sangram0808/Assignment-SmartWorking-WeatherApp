@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 
 import { useGetWeatherByCityQuery } from '../../redux/api_slice/weather';
@@ -8,6 +8,8 @@ import useTheme from '../../hooks/useTheme';
 import { AppStrings } from '../../config/strings';
 import Colors from '../../appearance/theme/colors';
 import TEST_ID from '../../config/test_ids';
+import { TestIDs } from '../../config/test_ids/HomeScreen';
+import { getKey, storeKey } from '../../service/AsyncStorage';
 
 interface WeatherData {
     name: string;
@@ -38,6 +40,25 @@ const HomeScreen: React.FC = () => {
         }
     };
 
+    useEffect(() => {
+        getLastSearchCity()
+    }, [])
+
+    const getLastSearchCity = async () => {
+        const searched_city = await getKey('searched_city')
+        if (searched_city) {
+            setSearchedCity(searched_city)
+            setCity(searched_city)
+        }
+    }
+
+    useEffect(() => {
+        if (data && data.name) {
+            storeKey('searched_city', data.name)
+        }
+    }, [data])
+ 
+
     return (
         <Container>
             <Header headerTitle={AppStrings.APP_NAME} />
@@ -57,9 +78,9 @@ const HomeScreen: React.FC = () => {
 
                 {(data || error || isLoading) && <View style={[Common.card]}>
 
-                    {isLoading && <ActivityIndicator testID="loading-indicator" size="large" color={themeColors.PRIMARY} />}
+                    {isLoading && <ActivityIndicator testID={TestIDs.LOADING_INDICATOR} size="large" color={themeColors.PRIMARY} />}
 
-                    {error && <Text style={{ fontSize: 16, color: Colors.RED }}>{AppStrings.ERROR}</Text>}
+                    {error && <Text testID={TestIDs.ERROR_MESSAGE} style={{ fontSize: 16, color: Colors.RED }}>{AppStrings.ERROR}</Text>}
 
                     {(!error && data) && (<>
                         <Text testID={TEST_ID.CITY_NAME} style={[Fonts.titleMediumSmall, { color: themeColors.TEXT_PRIMARY }]}>🌍 {data.name}</Text>
