@@ -10,6 +10,8 @@ import Colors from '../../appearance/theme/colors';
 import TEST_ID from '../../config/test_ids';
 import { TestIDs } from '../../config/test_ids/HomeScreen';
 import { getKey, storeKey } from '../../service/AsyncStorage';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+
 
 interface WeatherData {
     name: string;
@@ -63,6 +65,8 @@ const HomeScreen: React.FC = () => {
         <Container>
             <Header headerTitle={AppStrings.APP_NAME} />
 
+            <Icon name="comments" size={30} color="#900" />
+            
             <View style={{ flex: 1, backgroundColor: themeColors.BACKGROUND }}>
 
                 <TextInput
